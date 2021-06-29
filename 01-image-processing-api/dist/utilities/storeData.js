@@ -48,12 +48,7 @@ var getData = function (path) { return __awaiter(void 0, void 0, void 0, functio
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, csvtojson_1.default({ flatKeys: true })
-                        .fromFile(path)
-                        .on('error', function (err) {
-                        console.log(err);
-                        throw err;
-                    })];
+                return [4 /*yield*/, csvtojson_1.default({ flatKeys: true }).fromFile(path)];
             case 1:
                 readData = _a.sent();
                 console.log("Read data from " + path);
@@ -61,7 +56,7 @@ var getData = function (path) { return __awaiter(void 0, void 0, void 0, functio
             case 2:
                 err_1 = _a.sent();
                 console.error(err_1.message);
-                throw new err_1;
+                throw err_1;
             case 3:
                 ;
                 return [2 /*return*/];
@@ -89,7 +84,7 @@ var appendData = function (data, path) { return __awaiter(void 0, void 0, void 0
             case 2:
                 error_1 = _a.sent();
                 console.error(error_1.message);
-                throw new error_1;
+                throw error_1;
             case 3:
                 ;
                 return [2 /*return*/];

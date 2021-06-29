@@ -5,24 +5,24 @@ import {PathLike, promises as fs} from 'fs';
 
 describe('getData Tests', () => {
 
-  it('getData should return {} when images.json is empty', async() => {
-    var jsonEmptyPath = path.resolve(__dirname, '../assets/data/imagesEmpty.csv');
-    expect(await getData(jsonEmptyPath)).toEqual([])
+  it('getData should return {} when images.csv is empty', async() => {
+    var csvEmptyPath = path.resolve(__dirname, '../assets/data/imagesEmpty.csv');
+    expect(await getData(csvEmptyPath)).toEqual([])
   });
 
   it('getData should return as expected', async() => {
-    var jsonSamplePath = path.resolve(__dirname, '../assets/data/imagesSample.csv');
-    expect(await getData(jsonSamplePath)).toEqual(
+    var csvSamplePath = path.resolve(__dirname, '../assets/data/imagesSample.csv');
+    expect(await getData(csvSamplePath)).toEqual(
       [
         {indexName: 'fjord-200x200', fileName: 'thumb/fjord-200x200.jpg'}
       ]
     );
   });
 
-  // it('getData should trown an error', async() => {
-  //   var jsonNotPath = path.resolve(__dirname, '../../assets/data/imagesNotFind.csv');
-  //   expect( async () => {await getData(jsonNotPath)}).toThrowError();
-  // });
+  it('getData should trown an error if file does not exists', async() => {
+    var csvNotPath = path.resolve(__dirname, '../../assets/data/imagesNotFind.csv');
+    await expectAsync(getData(csvNotPath)).toBeRejected();
+  });
 
 });
 
@@ -63,9 +63,9 @@ describe('appendData Tests', () => {
     expect(await fs.readFile(csvSamplePath, 'utf-8')).toEqual(expectedCsvText)
   });
 
-  // it('getData should trown an error', async() => {
-  //   var jsonNotPath = path.resolve(__dirname, '../../assets/data/imagesNotFind.csv');
-  //   expect( async () => {await getData(jsonNotPath)}).toThrowError();
-  // });
+  it('appendData should trown an error if file does not exists', async() => {
+    var csvNotPath = path.resolve(__dirname, '../../assets/data/imagesNotFind.csv');
+    await expectAsync(appendData([], csvNotPath)).toBeRejected();
+  });
 
 });

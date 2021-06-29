@@ -43,14 +43,14 @@ var path_1 = __importDefault(require("path"));
 var storeData_1 = require("../../utilities/storeData");
 var fs_1 = require("fs");
 describe('getData Tests', function () {
-    it('getData should return {} when images.json is empty', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var jsonEmptyPath, _a;
+    it('getData should return {} when images.csv is empty', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var csvEmptyPath, _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    jsonEmptyPath = path_1.default.resolve(__dirname, '../assets/data/imagesEmpty.csv');
+                    csvEmptyPath = path_1.default.resolve(__dirname, '../assets/data/imagesEmpty.csv');
                     _a = expect;
-                    return [4 /*yield*/, storeData_1.getData(jsonEmptyPath)];
+                    return [4 /*yield*/, storeData_1.getData(csvEmptyPath)];
                 case 1:
                     _a.apply(void 0, [_b.sent()]).toEqual([]);
                     return [2 /*return*/];
@@ -58,13 +58,13 @@ describe('getData Tests', function () {
         });
     }); });
     it('getData should return as expected', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var jsonSamplePath, _a;
+        var csvSamplePath, _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    jsonSamplePath = path_1.default.resolve(__dirname, '../assets/data/imagesSample.csv');
+                    csvSamplePath = path_1.default.resolve(__dirname, '../assets/data/imagesSample.csv');
                     _a = expect;
-                    return [4 /*yield*/, storeData_1.getData(jsonSamplePath)];
+                    return [4 /*yield*/, storeData_1.getData(csvSamplePath)];
                 case 1:
                     _a.apply(void 0, [_b.sent()]).toEqual([
                         { indexName: 'fjord-200x200', fileName: 'thumb/fjord-200x200.jpg' }
@@ -73,10 +73,19 @@ describe('getData Tests', function () {
             }
         });
     }); });
-    // it('getData should trown an error', async() => {
-    //   var jsonNotPath = path.resolve(__dirname, '../../assets/data/imagesNotFind.csv');
-    //   expect( async () => {await getData(jsonNotPath)}).toThrowError();
-    // });
+    it('getData should trown an error if file does not exists', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var csvNotPath;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    csvNotPath = path_1.default.resolve(__dirname, '../../assets/data/imagesNotFind.csv');
+                    return [4 /*yield*/, expectAsync(storeData_1.getData(csvNotPath)).toBeRejected()];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
 });
 describe('appendData Tests', function () {
     beforeAll(function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -143,8 +152,17 @@ describe('appendData Tests', function () {
             }
         });
     }); });
-    // it('getData should trown an error', async() => {
-    //   var jsonNotPath = path.resolve(__dirname, '../../assets/data/imagesNotFind.csv');
-    //   expect( async () => {await getData(jsonNotPath)}).toThrowError();
-    // });
+    it('appendData should trown an error if file does not exists', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var csvNotPath;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    csvNotPath = path_1.default.resolve(__dirname, '../../assets/data/imagesNotFind.csv');
+                    return [4 /*yield*/, expectAsync(storeData_1.appendData([], csvNotPath)).toBeRejected()];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
 });

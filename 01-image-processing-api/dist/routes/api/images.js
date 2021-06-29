@@ -44,7 +44,7 @@ var express_1 = __importDefault(require("express"));
 var path_1 = __importDefault(require("path"));
 var sharp_1 = __importDefault(require("sharp"));
 var storeData_1 = require("../../utilities/storeData");
-var jsonPath = path_1.default.resolve(__dirname, '../../../data/images.json');
+var csvPath = path_1.default.resolve(__dirname, '../../../data/images.csv');
 var resizeImage = function (fileName, newFileName, width, height) { return __awaiter(void 0, void 0, void 0, function () {
     var widthNumber, heightNumber;
     return __generator(this, function (_a) {
@@ -71,43 +71,36 @@ var resizeImage = function (fileName, newFileName, width, height) { return __awa
 }); };
 exports.resizeImage = resizeImage;
 var check_and_create_thumb = function (image, width, height) { return __awaiter(void 0, void 0, void 0, function () {
-    var thumbName, fileName, newFileName, data, error_1;
+    var thumbName, fileName, newFileName, data, imageData, imageData, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 5, , 6]);
-                thumbName = width + "x" + height;
+                thumbName = image + "-" + width + "x" + height;
                 fileName = path_1.default.resolve(__dirname, '../../../images', image + ".jpg");
-                newFileName = path_1.default.resolve(__dirname, '../../../thumb/', image + "-" + thumbName + ".jpg");
-                return [4 /*yield*/, storeData_1.getData(jsonPath)];
+                newFileName = path_1.default.resolve(__dirname, '../../../thumb/', thumbName + ".jpg");
+                return [4 /*yield*/, storeData_1.getData(csvPath)];
             case 1:
                 data = _a.sent();
-                // Logs
-                console.log(thumbName);
-                console.log(fileName);
-                console.log(newFileName);
-                console.log(data);
-                // Create an object
-                if (data[image] === undefined) {
-                    data[image] = {};
-                }
-                ;
-                if (!(data[image][thumbName] === undefined)) return [3 /*break*/, 3];
+                imageData = data.map(function (row) {
+                    if (row["indexName"] == thumbName) {
+                        return row;
+                    }
+                });
+                if (!(imageData[0] === undefined)) return [3 /*break*/, 4];
                 return [4 /*yield*/, resizeImage(fileName, newFileName, width, height)];
             case 2:
                 _a.sent();
-                data[image][thumbName] = newFileName;
-                _a.label = 3;
+                imageData = [
+                    { "indexName": thumbName, "fileName": newFileName }
+                ];
+                return [4 /*yield*/, storeData_1.appendData(imageData, csvPath)];
             case 3:
-                ;
-                // Logs
-                console.log(data);
-                // Save json
-                return [4 /*yield*/, storeData_1.appendData(data, jsonPath)];
-            case 4:
-                // Save json
                 _a.sent();
-                return [2 /*return*/, data[image][thumbName]];
+                _a.label = 4;
+            case 4: 
+            // Return filename
+            return [2 /*return*/, imageData[0]["fileName"]];
             case 5:
                 error_1 = _a.sent();
                 console.error(error_1.message);

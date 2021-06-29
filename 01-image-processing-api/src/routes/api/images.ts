@@ -3,7 +3,7 @@ import path from 'path';
 import sharp from 'sharp';
 import { getData, appendData } from '../../utilities/storeData'
 
-var jsonPath: string = path.resolve(__dirname, '../../../data/images.json');
+var csvPath: string = path.resolve(__dirname, '../../../data/images.csv');
 
 
 const resizeImage = async (fileName: string, newFileName: string, width: number, height: number): Promise<void> => {
@@ -28,29 +28,27 @@ const resizeImage = async (fileName: string, newFileName: string, width: number,
 const check_and_create_thumb = async (image: string, width: number, height: number): Promise<string> => {
   try {
     // Var definition
-    var thumbName:string = `${width}x${height}`;
+    var thumbName:string = `${image}-${width}x${height}`;
     var fileName: string = path.resolve(__dirname, '../../../images', `${image}.jpg`);
-    var newFileName:string = path.resolve(__dirname, '../../../thumb/', `${image}-${thumbName}.jpg`);
-    var data = await getData(jsonPath);
-    // Logs
-    console.log(thumbName);
-    console.log(fileName);
-    console.log(newFileName);
-    console.log(data);
-    // Create an object
-    if (data[image] === undefined) {
-      data[image] = {};
-    };
-    // Create a new thumb if there is no image on thumb
-    if (data[image][thumbName] === undefined) {
+    var newFileName:string = path.resolve(__dirname, '../../../thumb/', `${thumbName}.jpg`);
+    // Read data
+    var data = await getData(csvPath);
+    // Check if image was already resized according to width and height
+    var imageData: { [key: string] : string }[] = data.map( (row: { [key: string]: string }) => {
+      if (row["indexName"] == thumbName) {
+        return row
+      }
+    });
+    // Check if is needed to resize the image
+    if (imageData[0] === undefined) {
       await resizeImage(fileName, newFileName, width, height);
-      data[image][thumbName] = newFileName;
-    };
-    // Logs
-    console.log(data);
-    // Save json
-    await appendData(data, jsonPath);
-    return data[image][thumbName];
+      var imageData: { [key: string] : string }[] = [
+        {"indexName": thumbName, "fileName": newFileName}
+      ];
+      await appendData(imageData, csvPath);
+    }
+    // Return filename
+    return imageData[0]["fileName"];
   } catch(error) {
     console.error(error.message);
     throw error;

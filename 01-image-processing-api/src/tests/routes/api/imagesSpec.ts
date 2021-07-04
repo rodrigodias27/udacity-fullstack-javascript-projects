@@ -67,6 +67,7 @@ describe('Tests check_and_create_thumb', () => {
     var fileNameSampleData: string = path.resolve(__dirname, '../../../tests/assets/data/checkImageSample.csv');
     var expectedCsvText: string = `indexName, fileName\nfjord-200x300, ${fileNameImage}`;
     // Assert
+    expect(await fs.readFile(fileNameSampleData, 'utf-8')).toEqual(expectedCsvText);
     expect(
       await images.check_and_create_thumb(
         'fjord',
@@ -80,7 +81,10 @@ describe('Tests check_and_create_thumb', () => {
     expect(await fs.readFile(fileNameSampleData, 'utf-8')).toEqual(expectedCsvText);
   });
 
-  // TODO: test async Reject
+  it('check_and_create_thumb should reject if any path is wrong', async () => {
+    // Assert
+    await expectAsync(
+      images.check_and_create_thumb('fjord', 200, 300, '../../../images/', '../../tests/assets/thumb', 'DataNotExists'),
+    ).toBeRejected();
+  });
 });
-
-// TODO: test route

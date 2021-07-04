@@ -68,11 +68,20 @@ images.get('/', async (req, res) => {
     var image: string = req.query.image as unknown as string;
     var width: number = req.query.width as unknown as number;
     var height: number = req.query.height as unknown as number;
-    var responseFileName = await check_and_create_thumb(image, width, height);
-    res.sendFile(responseFileName);
+    // Check parameters and call check_and_create_thumb
+    if (image === undefined || width === undefined || height === undefined) {
+      res.status(400).send('Missing params');
+    } else {
+      var responseFileName = await check_and_create_thumb(image, width, height);
+      res.sendFile(responseFileName);
+    }
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Internal Error');
+    if (error.message == 'Input file is missing') {
+      res.status(404).send('Image not found.');
+    } else {
+      res.status(500).send('Internal Error');
+    }
   }
 });
 

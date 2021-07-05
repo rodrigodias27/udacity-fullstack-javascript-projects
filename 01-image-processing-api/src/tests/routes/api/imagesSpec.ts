@@ -64,7 +64,7 @@ describe('expect images module resizeFile and save thumb correctly', () => {
     it('expect checkAndCreateThumb dont call resizeImage if image already exists', async () => {
       // Arrange
       var expectedCsvText: string = `indexName, fileName\nfjord-200x300, ${fileNameImage200x300}`;
-      spyOn(images, 'resizeImage')
+      spyOn(images, 'resizeImage');
       // Assert
       expect(await fs.readFile(fileNameSampleData, 'utf-8')).toEqual(expectedCsvText);
       expect(

@@ -11,13 +11,11 @@ const resizeImage = async (fileName: string, newFileName: string, width: number,
   var widthNumber: number = 1 * width;
   var heightNumber: number = 1 * height;
 
-  console.info(`Resizing ${fileName}`);
-
   await sharp(fileName)
     .resize(widthNumber, heightNumber)
     .toFile(newFileName)
     .then((dataImage) => {
-      console.info(`Created ${newFileName}`);
+      return;
     })
     .catch((err) => {
       console.error(err.message);
@@ -25,7 +23,7 @@ const resizeImage = async (fileName: string, newFileName: string, width: number,
     });
 };
 
-const check_and_create_thumb = async (
+const checkAndCreateThumb = async (
   image: string,
   width: number,
   height: number,
@@ -68,11 +66,11 @@ images.get('/', async (req, res) => {
     var image: string = req.query.image as unknown as string;
     var width: number = req.query.width as unknown as number;
     var height: number = req.query.height as unknown as number;
-    // Check parameters and call check_and_create_thumb
+    // Check parameters and call checkAndCreateThumb
     if (image === undefined || width === undefined || height === undefined) {
       res.status(400).send('Missing params');
     } else {
-      var responseFileName = await check_and_create_thumb(image, width, height);
+      var responseFileName = await checkAndCreateThumb(image, width, height);
       res.sendFile(responseFileName);
     }
   } catch (error) {
@@ -87,6 +85,6 @@ images.get('/', async (req, res) => {
 
 export default {
   images,
-  check_and_create_thumb,
+  checkAndCreateThumb,
   resizeImage,
 };

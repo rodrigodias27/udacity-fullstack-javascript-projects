@@ -2,7 +2,7 @@ import express from 'express';
 import routes from './routes/index';
 
 const app = express();
-const port = 3000;
+const port: number = 3000;
 
 const errorMiddleware = (err: Error, req: express.Request, res: express.Response, next: express.NextFunction): void => {
   console.error(err.message);

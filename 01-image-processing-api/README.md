@@ -6,6 +6,9 @@ API that can be used in two different ways. As a simple placeholder API, the fir
 
 ## Starting server:
 ```bash
+# Build
+npm run build
+# Run
 node dist/index.js
 ```
 Server will be served on http://localhost:3000
@@ -23,7 +26,7 @@ Params:
 
 Example:
 ```
-http://localhost:3000/images?image=fjord&width=200&height=200
+http://localhost:3000/api/images?image=fjord&width=200&height=200
 ```
 
 > **Available images**
@@ -35,9 +38,14 @@ http://localhost:3000/images?image=fjord&width=200&height=200
 
 # Development
 
-Run prettier and eslint:
+Run eslint:
 ```bash
 npm run lint
+```
+
+Run prettier:
+```bash
+npm run prettier
 ```
 
 Start server using nodemon:

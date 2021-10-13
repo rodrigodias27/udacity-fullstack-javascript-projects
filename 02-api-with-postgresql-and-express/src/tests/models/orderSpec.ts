@@ -10,7 +10,7 @@ const user_store = new UserStore()
 describe("Order Model", () => {
 
   beforeEach(async () => {
-    // Setup: create a user, order and product
+    // Setup: create an user, order and product
     await user_store.create({
       id: 1,
       first_name: 'Doctor',

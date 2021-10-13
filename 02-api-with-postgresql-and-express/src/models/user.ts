@@ -102,8 +102,6 @@ export class UserStore {
 
         conn.release();
 
-        console.log(user);
-
         const pepper = BCRYPT_PASSWORD as unknown as string;
         if (bcrypt.compareSync(password + pepper, user.password_digest)) {
           return user

@@ -100,7 +100,6 @@ export class OrderStore {
       const conn = await Client.connect();
 
       const result = await conn.query(sql, [order_id, product_id, quantity]);
-      console.log(result.rows[0]);
 
       conn.release();
 
@@ -119,7 +118,6 @@ export class OrderStore {
       const conn = await Client.connect();
 
       const result = await conn.query(sql, [quantity, order_id, product_id]);
-      console.log(result.rows[0]);
 
       conn.release();
 

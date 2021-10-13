@@ -38,7 +38,6 @@ const create = async (req: express.Request, res: express.Response) => {
   try {
     const user_id = req.body.user_id as unknown as number;
 
-    console.log('Try create a order');
     const newOrder = await store.create(user_id);
 
     res.json(newOrder);

@@ -3,10 +3,10 @@ import { User, UserStore } from '../../models/user';
 
 const store = new UserStore()
 
-describe('Product Model', () => {
+describe('User Model', () => {
 
   beforeEach(async () => {
-    // Setup: create a user
+    // Setup: create an user
     await store.create({
       id: 1,
       first_name: 'Doctor',
@@ -50,7 +50,7 @@ describe('Product Model', () => {
     expect(store.delete).toBeDefined();
   });
 
-  it('create method should add a user', async () => {
+  it('create method should add an user', async () => {
     // Act
     const result = await store.create({
       id: 2,
@@ -59,7 +59,7 @@ describe('Product Model', () => {
       password_digest: '',
       role: 'user',
     },
-    'Trenzalore')
+    'pinkhusband')
     // Assert
     expect(result.id).toEqual(2)
     expect(result.first_name).toEqual('Clara')
@@ -103,7 +103,7 @@ describe('Product Model', () => {
     expect(result.role).toEqual('admin')
   });
 
-  it('update method should update a user', async () => {
+  it('update method should update an user', async () => {
     // Act
     const result = await store.update({
       id: 1,

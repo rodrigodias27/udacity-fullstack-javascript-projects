@@ -14,11 +14,9 @@ const verifyAuthToken = (
   try {
     const authorizationHeader = req.headers.authorization as unknown as string;
     const token = authorizationHeader.split(' ')[1];
-    console.log(token);
 
     const token_secret = TOKEN_SECRET as unknown as string;
     const decoded = jwt.verify(token, token_secret);
-    console.log(decoded);
     next();
   } catch (err) {
     console.error(err);
@@ -36,7 +34,6 @@ const verifyAuthTokenRoleAdmin = (
   try {
     const authorizationHeader = req.headers.authorization as unknown as string;
     const token = authorizationHeader.split(' ')[1];
-    console.log(token);
 
     const token_secret = TOKEN_SECRET as unknown as string;
     const decoded = jwt.verify(token, token_secret);
@@ -63,7 +60,6 @@ const verifyAuthTokenUserId = (
   try {
     const authorizationHeader = req.headers.authorization as unknown as string;
     const token = authorizationHeader.split(' ')[1];
-    console.log(token);
 
     const token_secret = TOKEN_SECRET as unknown as string;
     const decoded = jwt.verify(token, token_secret);
@@ -91,7 +87,6 @@ const verifyAuthTokenRoleAdminUserId = (
   try {
     const authorizationHeader = req.headers.authorization as unknown as string;
     const token = authorizationHeader.split(' ')[1];
-    console.log(token);
 
     const token_secret = TOKEN_SECRET as unknown as string;
     const decoded = jwt.verify(token, token_secret);

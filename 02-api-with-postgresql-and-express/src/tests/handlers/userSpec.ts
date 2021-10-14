@@ -234,7 +234,7 @@ describe('User endpoints', () => {
         .put('/users/')
         .set({'Authorization': `Bearer ${token}`})
         .send({
-          id: 1,
+          user_id: 1,
           first_name: 'Missy',
           last_name: 'The Master',
           password: 'Gallifrey'
@@ -256,7 +256,7 @@ describe('User endpoints', () => {
         .put('/users/')
         .set({'Authorization': `Bearer ${token}`})
         .send({
-          id: 1,
+          user_id: 1,
           first_name: 'Clara',
           last_name: 'Oswald',
           password: 'pinkman',
@@ -265,14 +265,14 @@ describe('User endpoints', () => {
       expect(result.status).toBe(400)
     });
 
-    it('should return 401 if token is different from user in body', async () => {
+    it('should return 401 if token is different from user_id in body', async () => {
       // Act
       const token = await authUser();
       const result = await request
         .put('/users/')
         .set({'Authorization': `Bearer ${token}`})
         .send({
-          id: 1,
+          user_id: 1,
           first_name: 'Missy',
           last_name: 'The Master',
           password: 'Gallifrey'
@@ -281,17 +281,17 @@ describe('User endpoints', () => {
       expect(result.status).toBe(401)
     });
 
-    it('should remove the user if token is from same user in body', async () => {
+    it('should update the user if token is from same user in body', async () => {
       // Act
       const token = await authUser();
       const result = await request
         .put('/users/')
         .set({'Authorization': `Bearer ${token}`})
         .send({
-          id: 2,
+          user_id: 2,
           first_name: 'Missy',
           last_name: 'The Master',
-          password: 'Gallifrey'
+          password: 'Gallifrey',
         });
       // Assert
       expect(result.status).toBe(200)
@@ -308,7 +308,7 @@ describe('User endpoints', () => {
       const result = await request
         .put('/users/')
         .send({
-          id: 1,
+          user_id: 1,
           first_name: 'Missy',
           last_name: 'The Master',
           password: 'Gallifrey'
@@ -367,7 +367,7 @@ describe('User endpoints', () => {
       const result = await request
         .delete('/users/')
         .set({'Authorization': `Bearer ${token}`})
-        .send({ id: 2 });
+        .send({ user_id: 2 });
       // Assert
       expect(result.status).toBe(200)
       const resBody = result.body
@@ -389,7 +389,7 @@ describe('User endpoints', () => {
       const result = await request
         .delete('/users/')
         .set({'Authorization': `Bearer ${token}`})
-        .send({ id: 2 });
+        .send({ user_id: 2 });
       // Assert
       expect(result.status).toBe(200)
       const resBody = result.body
@@ -412,7 +412,7 @@ describe('User endpoints', () => {
       const result = await request
         .delete('/users/')
         .set({'Authorization': `Bearer ${token}`})
-        .send({ id: 1 });
+        .send({ user_id: 1 });
       // Assert
       expect(result.status).toBe(401);
     });
@@ -421,7 +421,7 @@ describe('User endpoints', () => {
       // Act
       const result = await request
         .delete('/users/')
-        .send({ id: 2 });
+        .send({ user_id: 2 });
       // Assert
       expect(result.status).toBe(401);
     });

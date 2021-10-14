@@ -64,7 +64,7 @@ const verifyAuthTokenUserId = (
     const token_secret = TOKEN_SECRET as unknown as string;
     const decoded = jwt.verify(token, token_secret);
 
-    const user_id = req.body.id as unknown as number;
+    const user_id = req.body.user_id as unknown as number;
     const decoded_data = decoded as unknown as jwt.JwtPayload;
     if (decoded_data['user']['id'] != user_id) {
       throw new Error('User id does not match with token');
@@ -91,7 +91,7 @@ const verifyAuthTokenRoleAdminUserId = (
     const token_secret = TOKEN_SECRET as unknown as string;
     const decoded = jwt.verify(token, token_secret);
 
-    const user_id = req.body.id as unknown as number;
+    const user_id = req.body.user_id as unknown as number;
     const decoded_data = decoded as unknown as jwt.JwtPayload;
     if (decoded_data['user']['id'] != user_id && decoded_data['user']['role'] != 'admin') {
       throw new Error("User id should match with token or User role should be 'admin'");

@@ -30,7 +30,7 @@ describe("Order Model", () => {
   });
 
   afterEach(async () => {
-    // Clean table orders, products and orders_products
+    // Clean table users, orders, products and orders_products
     const conn = await client.connect();
     const sql = 'TRUNCATE TABLE orders_products cascade;' +
       'ALTER SEQUENCE orders_products_id_seq RESTART WITH 1;'+
@@ -117,7 +117,7 @@ describe("Order Model", () => {
 
   it('update method should update a order', async () => {
     // Act
-    const result = await store.update(1, 'complete');
+    const result = await store.update(1, 1, 'complete');
     // Assert
     expect(result).toEqual({
       id: 1,
@@ -187,7 +187,7 @@ describe("Order Model", () => {
 
   it('get_order_by_status should return orders with status complete', async () => {
     // Arrange
-    const resultUpdated = await store.update(1, 'complete');
+    const resultUpdated = await store.update(1, 1,'complete');
     expect(resultUpdated).toEqual({
       id: 1,
       products: [ 1 ],

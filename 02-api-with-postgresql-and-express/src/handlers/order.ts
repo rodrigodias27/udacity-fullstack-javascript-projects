@@ -52,15 +52,15 @@ const create = async (req: express.Request, res: express.Response) => {
 const update = async (req: express.Request, res: express.Response) => {
   try {
     const id = req.body.id as unknown as number;
+    const user_id = req.body.user_id as unknown as number;
     const status = req.body.status as unknown as string;
 
-    const acceptedStatus = ['active', 'complete'];
-    if (!(status in acceptedStatus)) {
+    if (status != 'active' && status != 'complete') {
       res.status(400).json('Status must be active or complete');
       return
     }
 
-    const newOrder = await store.update(id, status);
+    const newOrder = await store.update(id, user_id, status);
 
     res.json(newOrder);
   } catch (err) {
@@ -108,7 +108,7 @@ const edit_product = async (req: express.Request, res: express.Response) => {
 const active_orders = async (req: express.Request, res: express.Response) => {
   try {
     const user_id = req.body.user_id as unknown as number;
-    const status = 'active';
+    const status: string = 'active';
 
     const orders = await store.get_orders_by_status(user_id, status);
     res.json(orders);
@@ -120,10 +120,10 @@ const active_orders = async (req: express.Request, res: express.Response) => {
   }
 };
 
-const completed_orders = async (req: express.Request, res: express.Response) => {
+const complete_orders = async (req: express.Request, res: express.Response) => {
   try {
     const user_id = req.body.user_id as unknown as number;
-    const status = 'completed';
+    const status = 'complete';
 
     const orders = await store.get_orders_by_status(user_id, status);
     res.json(orders);
@@ -150,13 +150,13 @@ const destroy = async (req: express.Request, res: express.Response) => {
 const orderRoutes = (app: express.Application) => {
   app.get('/orders/', verifyAuthTokenRoleAdmin, index);
   app.get('/orders/:id', verifyAuthTokenRoleAdmin, show);
-  app.get('/orders/active/', verifyAuthTokenRoleAdminUserId, active_orders);
-  app.get('/orders/completed/', verifyAuthTokenRoleAdminUserId, completed_orders);
   app.post('/orders/', verifyAuthTokenRoleAdminUserId, create);
-  app.post('/orders/product/', verifyAuthTokenRoleAdminUserId, add_product);
+  app.get('/orders-active/', verifyAuthTokenRoleAdminUserId, active_orders);
+  app.get('/orders-complete/', verifyAuthTokenRoleAdminUserId, complete_orders);
+  app.post('/orders-product/', verifyAuthTokenRoleAdminUserId, add_product);
   app.put('/orders/', verifyAuthTokenRoleAdminUserId, update);
-  app.put('/orders/product/', verifyAuthTokenRoleAdminUserId, edit_product);
-  app.delete('/orders/', verifyAuthTokenRoleAdminUserId, destroy);
+  app.put('/orders-product/', verifyAuthTokenRoleAdminUserId, edit_product);
+  app.delete('/orders/', verifyAuthTokenRoleAdmin, destroy);
 };
 
 export default orderRoutes;

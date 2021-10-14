@@ -24,7 +24,7 @@ const index = async (_req: express.Request, res: express.Response) => {
 
 const show = async (req: express.Request, res: express.Response) => {
   try {
-    const user = await store.show(req.params.id);
+    const user = await store.show(req.params.user_id);
 
     if (user == undefined) {
       res.status(404).send(`Could not find user ${req.params.id}`);
@@ -94,7 +94,7 @@ const authenticate = async (req: express.Request, res: express.Response) => {
 const update = async (req: express.Request, res: express.Response) => {
   try {
     const user: User = {
-      id: req.body.id,
+      id: req.body.user_id,
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       password_digest: '',
@@ -114,7 +114,7 @@ const update = async (req: express.Request, res: express.Response) => {
 
 const destroy = async (req: express.Request, res: express.Response) => {
   try {
-    const user = await store.delete(req.body.id);
+    const user = await store.delete(req.body.user_id);
     res.json(user);
   } catch (err) {
     console.error(err);
@@ -126,7 +126,7 @@ const destroy = async (req: express.Request, res: express.Response) => {
 
 const userRoutes = (app: express.Application) => {
   app.get('/users/', verifyAuthTokenRoleAdmin, index);
-  app.get('/users/:id', verifyAuthTokenRoleAdmin, show);
+  app.get('/users/:user_id', verifyAuthTokenRoleAdmin, show);
   app.post('/users/', verifyAuthTokenRoleAdmin, create);
   app.post('/users/authenticate/', authenticate);
   app.put('/users/', verifyAuthTokenRoleAdminUserId, update);

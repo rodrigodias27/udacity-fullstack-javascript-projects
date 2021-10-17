@@ -1,44 +1,55 @@
 # API Requirements
 The company stakeholders want to create an online storefront to showcase their great product ideas. Users need to be able to browse an index of all products, see the specifics of a single product, and add products to an order that they can view in a cart page. You have been tasked with building the API that will support this application, and your coworker is building the frontend.
 
-These are the notes from a meeting with the frontend developer that describe what endpoints the API needs to supply, as well as data shapes the frontend and backend have agreed meet the requirements of the application. 
 
 ## API Endpoints
 #### Products
-- Index 
+- Index
 - Show
-- Create [token required] role: admin
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
+- Create [token required] [role: admin]
+- Update [token required] [role: admin]
+- Delete [token required] [role: admin]
 
 #### Users
-- Index [token required] role: admin
-- Show [token required] role: admin
-- Create N[token required] role: admin
+- Index [token required] [role: admin]
+- Show [token required] [role: admin]
+- Create [token required] [role: admin]
+- Authenticate
+- Update [token required] [role: admin, user_id: own_user]
+- Delete [token required] [role: admin, user_id: own_user]
 
 #### Orders
-- Add products to order
-- Complete order
-- Current Order by user (args: user id)[token required] role: user
-- [OPTIONAL] Completed Orders by user (args: user id)[token required] role: user
+- Index [token required] [role: admin]
+- Show [token required] [role: admin]
+- Create [token required] [role: admin]
+- Add products to order [token required] [role: admin, user_id: own_user]
+- Update products to order [token required] [role: admin, user_id: own_user]
+- Update order [token required] [role: admin, user_id: own_user]
+- Current Order by user [token required] [role: admin, user_id: own_user]
+- Completed Orders by user [token required] [role: admin, user_id: own_user]
+- Delete [token required] [role: admin]
 
-## Data Shapes
+## API Data Shapes
 #### Product
--  id
-- name
-- price
-- [OPTIONAL] category
+- id: number
+- name: string
+- price: number (cents)
+- category: string
 
 #### User
-- id
-- firstName
-- lastName
-- password
+- id: number
+- firstName: string
+- lastName: string
+- password_digest: string
+- role (admin or user): string
 
 #### Orders
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+- id: number
+- id of each product in the order: array of numbers
+- quantity of each product in the order: array of numbers
+- user_id: number
+- status of order (active or complete): string
 
+## Database Relationship
+
+![database-relationship](./assets/database-relationship.png)

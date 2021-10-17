@@ -60,7 +60,7 @@ describe('Order endpoints', () => {
       category: 'Lego'
     });
     await store.create(1);
-    await store.add_product(1, 1, 12);
+    await store.add_product(1, 1, 1, 12);
   });
 
   afterEach(async () => {
@@ -325,9 +325,168 @@ describe('Order endpoints', () => {
   });
 
   describe('POST /orders-products/', () => {
+    it('should add the product', async () => {
+      // Act
+      const token = await authAdmin();
+      const result = await request
+        .post('/orders-product/')
+        .set({'Authorization': `Bearer ${token}`})
+        .send({
+          order_id: 1,
+          user_id: 1,
+          product_id: 2,
+          quantity: 10
+        });
+      // Assert
+      expect(result.status).toBe(200)
+      const resBody = result.body
+      expect(resBody).toEqual({
+        id: 1,
+        products: [ 1, 2 ],
+        quantities: [ 12, 10 ],
+        user_id: 1,
+        status: 'active',
+      });
+    });
+
+    it('should return 401 if token is different from user_id in body', async () => {
+      // Act
+      const token = await authUser();
+      const result = await request
+        .post('/orders-product/')
+        .set({'Authorization': `Bearer ${token}`})
+        .send({
+          order_id: 1,
+          user_id: 1,
+          product_id: 2,
+          quantity: 10
+        });
+      // Assert
+      expect(result.status).toBe(401)
+    });
+
+    it('should return active orders if token is from same user in body', async () => {
+      // Arrange
+      await store.create(2);
+      // Act
+      const token = await authUser();
+      const result = await request
+        .post('/orders-product/')
+        .set({'Authorization': `Bearer ${token}`})
+        .send({
+          order_id: 2,
+          user_id: 2,
+          product_id: 2,
+          quantity: 10
+        });
+      // Assert
+      expect(result.status).toBe(200)
+      const resBody = result.body
+      expect(resBody).toEqual({
+        id: 2,
+        products: [ 2 ],
+        quantities: [ 10 ],
+        user_id: 2,
+        status: 'active'
+      });
+    });
+
+    it('should return 401 if there is no token', async () => {
+      // Act
+      const result = await request
+        .post('/orders-product/')
+        .send({
+          order_id: 1,
+          user_id: 1,
+          product_id: 2,
+          quantity: 10
+        });
+      // Assert
+      expect(result.status).toBe(401)
+    });
   });
 
   describe('PUT /orders-products/', () => {
+    it('should update the product', async () => {
+      // Act
+      const token = await authAdmin();
+      const result = await request
+        .put('/orders-product/')
+        .set({'Authorization': `Bearer ${token}`})
+        .send({
+          order_id: 1,
+          user_id: 1,
+          product_id: 1,
+          quantity: 5
+        });
+      // Assert
+      expect(result.status).toBe(200)
+      const resBody = result.body
+      expect(resBody).toEqual({
+        id: 1,
+        products: [ 1 ],
+        quantities: [ 5 ],
+        user_id: 1,
+        status: 'active',
+      });
+    });
+
+    it('should return 401 if token is different from user_id in body', async () => {
+      // Act
+      const token = await authUser();
+      const result = await request
+        .put('/orders-product/')
+        .set({'Authorization': `Bearer ${token}`})
+        .send({
+          order_id: 1,
+          user_id: 1,
+          product_id: 1,
+          quantity: 5
+        });
+      // Assert
+      expect(result.status).toBe(401)
+    });
+
+    it('should return active orders if token is from same user in body', async () => {
+      // Arrange
+      await store.create(2);
+      await store.add_product(2, 2, 1, 3);
+      // Act
+      const token = await authUser();
+      const result = await request
+        .put('/orders-product/')
+        .set({'Authorization': `Bearer ${token}`})
+        .send({
+          order_id: 2,
+          user_id: 2,
+          product_id: 1,
+          quantity: 10
+        });
+      // Assert
+      expect(result.status).toBe(200)
+      const resBody = result.body
+      expect(resBody).toEqual({
+        id: 2,
+        products: [ 1 ],
+        quantities: [ 10 ],
+        user_id: 2,
+        status: 'active'
+      });
+    });
+
+    it('should return 401 if there is no token', async () => {
+      // Act
+      const result = await request
+        .put('/orders-product/')
+        .send({
+          order_id: 1,
+          user_id: 1,
+          product_id: 1,
+          quantity: 3
+        });
+      // Assert
+      expect(result.status).toBe(401)
+    });
   });
 
   describe('PUT /orders/', () => {

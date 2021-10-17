@@ -74,10 +74,11 @@ const update = async (req: express.Request, res: express.Response) => {
 const add_product = async (req: express.Request, res: express.Response) => {
   try {
     const order_id = req.body.order_id as unknown as number;
+    const user_id = req.body.user_id as unknown as number;
     const product_id = req.body.product_id as unknown as number;
     const quantity = req.body.quantity as unknown as number;
 
-    const order = await store.add_product(order_id, product_id, quantity);
+    const order = await store.add_product(order_id, user_id, product_id, quantity);
 
     res.json(order);
   } catch (err) {
@@ -91,10 +92,11 @@ const add_product = async (req: express.Request, res: express.Response) => {
 const edit_product = async (req: express.Request, res: express.Response) => {
   try {
     const order_id = req.body.order_id as unknown as number;
+    const user_id = req.body.user_id as unknown as number;
     const product_id = req.body.product_id as unknown as number;
     const quantity = req.body.quantity as unknown as number;
 
-    const order = await store.update_product(order_id, product_id, quantity);
+    const order = await store.update_product(order_id, user_id, product_id, quantity);
 
     res.json(order);
   } catch (err) {

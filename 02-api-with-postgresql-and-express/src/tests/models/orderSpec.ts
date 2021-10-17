@@ -26,7 +26,7 @@ describe("Order Model", () => {
       category: 'Lego'
     });
     await store.create(1);
-    await store.add_product(1, 1, 12);
+    await store.add_product(1, 1, 1, 12);
   });
 
   afterEach(async () => {
@@ -139,7 +139,7 @@ describe("Order Model", () => {
       status: 'active'
     })
     // Act
-    const result = await store.add_product(2, 1, 5)
+    const result = await store.add_product(2, 1, 1, 5)
     // Assert
     expect(result).toEqual(
       {
@@ -154,12 +154,12 @@ describe("Order Model", () => {
 
   it('add_product method shouldnt add duplicate product to order', async () => {
     // Act and Assert
-    expectAsync(store.add_product(1, 1, 5)).toBeRejected()
+    expectAsync(store.add_product(1, 1, 1, 5)).toBeRejected()
   });
 
   it('update_product_quantity method should edit an product on order', async () => {
     // Act
-    const result = await store.update_product(1, 1, 3)
+    const result = await store.update_product(1, 1, 1, 3)
     // Assert
     expect(result).toEqual(
       {

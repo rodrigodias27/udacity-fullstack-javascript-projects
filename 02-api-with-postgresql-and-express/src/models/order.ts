@@ -94,12 +94,13 @@ export class OrderStore {
     }
   }
 
-  async add_product(order_id: number, product_id: number, quantity: number): Promise<Order> {
+  async add_product(order_id: number, user_id: number, product_id: number, quantity: number): Promise<Order> {
     try {
-      const sql = 'INSERT INTO orders_products (order_id, product_id, quantity) VALUES($1, $2, $3) RETURNING *';
+      const sql = 'WITH selectedOrder AS (SELECT id FROM orders WHERE id=($1) and user_id=($2) LIMIT 1)' +
+        'INSERT INTO orders_products (order_id, product_id, quantity) VALUES((select id from selectedOrder), $3, $4) RETURNING *';
       const conn = await Client.connect();
 
-      const result = await conn.query(sql, [order_id, product_id, quantity]);
+      const result = await conn.query(sql, [order_id, user_id, product_id, quantity]);
 
       conn.release();
 
@@ -112,12 +113,13 @@ export class OrderStore {
     }
   }
 
-  async update_product(order_id: number, product_id: number, quantity: number): Promise<Order> {
+  async update_product(order_id: number, user_id: number, product_id: number, quantity: number): Promise<Order> {
     try {
-      const sql = 'UPDATE orders_products SET quantity=($1) WHERE order_id=($2) and product_id=($3) RETURNING *';
+      const sql = 'WITH selectedOrder AS (SELECT id FROM orders WHERE id=($1) and user_id=($2) LIMIT 1)' +
+        'UPDATE orders_products SET quantity=($3) WHERE order_id=(select id from selectedOrder) and product_id=($4) RETURNING *';
       const conn = await Client.connect();
 
-      const result = await conn.query(sql, [quantity, order_id, product_id]);
+      const result = await conn.query(sql, [order_id, user_id, quantity, product_id]);
 
       conn.release();
 

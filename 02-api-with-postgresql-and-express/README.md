@@ -1,4 +1,7 @@
 # Storefront Backend Project
+## Getting Started
+
+This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo.
 
 - [Storefront Backend Project](#storefront-backend-project)
   - [Getting Started](#getting-started)
@@ -6,7 +9,7 @@
     - [Preparing](#preparing)
     - [Running server](#running-server)
     - [Testing](#testing)
-  - [## API endpoint](#-api-endpoint)
+  - [API endpoint](#api-endpoint)
     - [POST /users/authenticate/](#post-usersauthenticate)
       - [How to user authentication:](#how-to-user-authentication)
     - [GET /users/](#get-users)
@@ -29,10 +32,6 @@
     - [PUT /orders-product/](#put-orders-product)
     - [DELETE /orders/](#delete-orders)
   - [License](#license)
-
-## Getting Started
-
-This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo.
 
 ## Starting server:
 
@@ -99,6 +98,7 @@ npm run test
 ```
 
 ## API endpoint
+
 ---
 ### POST /users/authenticate/
 Return a jwt token to authenticate in other endpoints.

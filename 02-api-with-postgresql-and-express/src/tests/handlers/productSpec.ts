@@ -77,7 +77,6 @@ describe('Product endpoints', () => {
         .post('/products/')
         .set({'Authorization': `Bearer ${token}`})
         .send({
-          id: 3,
           name: 'Lego StarWars Deluxe',
           price: 10000,
           category: 'Lego/bricks'
@@ -98,7 +97,6 @@ describe('Product endpoints', () => {
         .post('/products/')
         .set({'Authorization': `Bearer ${token}`})
         .send({
-          id: 2,
           name: 'Lego StarWars',
           price: 10000,
           category: 'Lego/bricks'
@@ -114,7 +112,6 @@ describe('Product endpoints', () => {
         .post('/products/')
         .set({'Authorization': `Bearer ${token}`})
         .send({
-          id: 2,
           name: 'Lego StarWars Deluxe',
           price: 10000,
           category: 'Lego/bricks'
@@ -128,7 +125,6 @@ describe('Product endpoints', () => {
       const result = await request
         .post('/products/')
         .send({
-          id: 2,
           name: 'Lego StarWars Deluxe',
           price: 10000,
           category: 'Lego/bricks'

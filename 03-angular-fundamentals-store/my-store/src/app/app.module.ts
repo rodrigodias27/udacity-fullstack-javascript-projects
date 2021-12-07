@@ -7,6 +7,8 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { ProductItemDetailComponent } from './product-item-detail/product-item-detail.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -15,10 +17,12 @@ import { ProductListComponent } from './product-list/product-list.component';
     ConfirmationComponent,
     ProductItemComponent,
     ProductItemDetailComponent,
-    ProductListComponent
+    ProductListComponent,
+    HeaderComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

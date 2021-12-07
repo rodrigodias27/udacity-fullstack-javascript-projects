@@ -11,7 +11,7 @@
                 <div class="cart-item-details">
                     <p><strong>{{ productQty.product.name }}</strong></p>
                     <p>${{ productQty.product.price }}</p>
-                    <p>Amount: <input class="number-input" type="number" min="0" value="{{ productQty.quantity }}"></p>
+                    <p>Amount: <input class="number-input" type="number" min="0" name="productQty.quantity" [(ngModel)]="productQty.quantity" (ngModelChange)="ngOnInit()"></p>
                 </div>
             </div>
         </div>

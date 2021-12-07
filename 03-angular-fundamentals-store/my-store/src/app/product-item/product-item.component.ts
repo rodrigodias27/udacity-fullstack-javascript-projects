@@ -18,14 +18,15 @@ export class ProductItemComponent implements OnInit {
       price : 0,
       url: "",
       description: ""
-    }
+    };
   }
 
   ngOnInit(): void {
   }
 
   addProduct(): void {
-    this.cartService.addProduct(this.product.id, this.qty)
+    this.cartService.addProduct(this.product.id, this.qty);
+    alert("Added to cart!");
   }
 
 }

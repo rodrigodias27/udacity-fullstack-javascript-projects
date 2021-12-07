@@ -1,0 +1,15 @@
+<div class="detail-container">
+    <div class="detail-item">
+        <img src="{{ product.url }}">
+    </div>
+    <div class="detail-item">
+        <p>{{ product.name }}</p>
+        <p>${{ product.price }}</p>
+        <p>{{ product.description }}</p>
+        <input type="number" min=0 value=0 class="select-input">
+        <br>
+        <button type="button" class="btn btn-primary">Add to cart</button>
+        <br>
+        <a href="https://www.w3schools.com" class="back-link">&#8592;Back to product list</a>
+    </div>
+</div>

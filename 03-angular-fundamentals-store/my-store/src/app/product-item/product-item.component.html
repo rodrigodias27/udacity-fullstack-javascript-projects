@@ -1,5 +1,5 @@
 <div class="product-container">
-    <img class="product-image" src="{{ product.url }}">
+    <img class="product-image" src="{{ product.url }}" routerLink="/product/{{ product.id }}">
     <p>{{ product.name }}</p>
     <p>${{ product.price }}</p>
     <input type="number" min=0 value=0 class="select-input">

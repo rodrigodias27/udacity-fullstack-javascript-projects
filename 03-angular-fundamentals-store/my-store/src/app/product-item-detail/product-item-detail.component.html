@@ -3,13 +3,12 @@
         <img src="{{ product.url }}">
     </div>
     <div class="detail-item">
-        <p>{{ product.name }}</p>
+        <h4>{{ product.name }}</h4>
         <p>${{ product.price }}</p>
         <p>{{ product.description }}</p>
         <input type="number" min=0 value=0 class="select-input">
         <br>
         <button type="button" class="btn btn-primary">Add to cart</button>
-        <br>
-        <a href="https://www.w3schools.com" class="back-link">&#8592;Back to product list</a>
+        <button type="button" class="btn btn-link back-link" routerLink="/">&#8592;Back to product list</button>
     </div>
 </div>

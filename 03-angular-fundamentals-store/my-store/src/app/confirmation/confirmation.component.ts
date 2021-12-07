@@ -6,8 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./confirmation.component.css']
 })
 export class ConfirmationComponent implements OnInit {
+  totalPrice: number;
+  buyerName: string;
 
-  constructor() { }
+  constructor() {
+    this.totalPrice = 999.99
+    this.buyerName = "Jake Peralta"
+  }
 
   ngOnInit(): void {
   }

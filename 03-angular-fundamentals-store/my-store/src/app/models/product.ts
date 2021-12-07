@@ -5,3 +5,8 @@ export type Product = {
   url: string;
   description: string;
 };
+
+export type ProductQty = {
+  product: Product;
+  quantity: number;
+}

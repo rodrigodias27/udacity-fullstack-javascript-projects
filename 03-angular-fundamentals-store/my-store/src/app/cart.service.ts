@@ -10,6 +10,10 @@ export class CartService {
 
   constructor(private productService: ProductsService) {
     this.productQuantities = []
+    this.setupProductQuantities()
+  }
+
+  setupProductQuantities(): void {
     this.productService.getProducts().subscribe(res => {
       // Get product
       for (let product of res) {
@@ -28,11 +32,12 @@ export class CartService {
     this.productQuantities[id-1].quantity += quantity
   }
 
-  setProductQuantity(id: number, quantity: number): void {
-    this.productQuantities[id-1].quantity = quantity
-  }
-
   getProductQuantities(): ProductQty[] {
     return this.productQuantities.filter(p => p.quantity > 0)
+  }
+
+  clean(): void {
+    this.productQuantities = []
+    this.setupProductQuantities()
   }
 }

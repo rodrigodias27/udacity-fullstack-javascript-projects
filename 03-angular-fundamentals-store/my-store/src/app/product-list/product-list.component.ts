@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../models/product'
+import { Product, ProductQty } from '../models/product'
 import { ProductsService } from '../products.service';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-product-list',
@@ -10,7 +11,10 @@ import { ProductsService } from '../products.service';
 export class ProductListComponent implements OnInit {
   products: Product[];
 
-  constructor(private productsService: ProductsService) {
+  constructor(
+    private productsService: ProductsService,
+    private cartService: CartService
+  ) {
     this.products = [];
   }
 
@@ -20,4 +24,10 @@ export class ProductListComponent implements OnInit {
     })
   }
 
+  addProductToCart(productQty: ProductQty): void {
+    if (productQty.quantity > 0) {
+      this.cartService.addProduct(productQty.product.id, productQty.quantity);
+      alert('Added to cart!');
+    }
+  }
 }

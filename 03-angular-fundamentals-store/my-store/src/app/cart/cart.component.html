@@ -12,6 +12,7 @@
                     <p><strong>{{ productQty.product.name }}</strong></p>
                     <p>${{ productQty.product.price }}</p>
                     <p>Amount: <input class="number-input" type="number" min="0" name="productQty.quantity" [(ngModel)]="productQty.quantity" (ngModelChange)="ngOnInit()"></p>
+                    <button type="button" class="btn btn-danger" (click)="removeProduct(productQty.product.id)">Remove</button>
                 </div>
             </div>
         </div>

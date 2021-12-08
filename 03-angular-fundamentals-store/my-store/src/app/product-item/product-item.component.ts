@@ -9,16 +9,17 @@ import { CartService } from '../cart.service';
 })
 export class ProductItemComponent implements OnInit {
   @Input() product: Product;
-  qty: number = 0;
+  qty: number;
 
   constructor(private cartService: CartService) {
     this.product = {
       id: 0,
-      name: "",
+      name: '',
       price : 0,
-      url: "",
-      description: ""
+      url: '',
+      description: ''
     };
+    this.qty = 0;
   }
 
   ngOnInit(): void {
@@ -26,7 +27,7 @@ export class ProductItemComponent implements OnInit {
 
   addProduct(): void {
     this.cartService.addProduct(this.product.id, this.qty);
-    alert("Added to cart!");
+    alert('Added to cart!');
   }
 
 }

@@ -21,10 +21,10 @@ export class ProductItemDetailComponent implements OnInit {
   ) {
     this.product = {
       id: 0,
-      name: "",
+      name: '',
       price : 0,
-      url: "",
-      description: ""
+      url: '',
+      description: ''
     };
     this.productId = 0;
     this.qty = 0;
@@ -32,15 +32,15 @@ export class ProductItemDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.productId = params.get('id') as unknown as number
+      this.productId = params.get('id') as unknown as number;
     })
     this.productsService.getProducts().subscribe(res => {
-      this.product = res.filter(p => p.id == this.productId)[0]
+      this.product = res.filter(p => p.id == this.productId)[0];
     })
   }
 
   addProduct(): void {
     this.cartService.addProduct(this.product.id, this.qty);
-    alert("Added to cart!");
+    alert('Added to cart!');
   }
 }

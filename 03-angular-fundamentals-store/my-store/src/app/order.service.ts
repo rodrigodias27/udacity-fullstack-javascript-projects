@@ -4,26 +4,29 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class OrderService {
-  fullName: string = '';
-  totalValue: number = 0;
+  fullName: string;
+  totalValue: number;
 
-  constructor() {}
+  constructor() {
+    this.fullName = '';
+    this.totalValue = 0;
+  }
 
   setOrder(fullName: string, totalValue: number): void {
-    this.fullName = fullName
-    this.totalValue = totalValue
+    this.fullName = fullName;
+    this.totalValue = totalValue;
   }
 
   getFullName(): string {
-    return this.fullName
+    return this.fullName;
   }
 
   getTotalValue(): number {
-    return this.totalValue
+    return this.totalValue;
   }
 
   clean(): void {
-    this.fullName = ''
-    this.totalValue = 0
+    this.fullName = '';
+    this.totalValue = 0;
   }
 }

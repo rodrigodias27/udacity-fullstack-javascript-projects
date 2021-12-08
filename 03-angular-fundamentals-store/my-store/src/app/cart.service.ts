@@ -9,8 +9,8 @@ export class CartService {
   productQuantities: ProductQty[];
 
   constructor(private productService: ProductsService) {
-    this.productQuantities = []
-    this.setupProductQuantities()
+    this.productQuantities = [];
+    this.setupProductQuantities();
   }
 
   setupProductQuantities(): void {
@@ -20,24 +20,24 @@ export class CartService {
       // Add new ProductQty
         this.productQuantities.push(
           {
-            "product": product,
-            "quantity": 0
+            'product': product,
+            'quantity': 0
           }
-        )
+        );
       }
     })
   }
 
   addProduct(id: number, quantity: number): void {
-    this.productQuantities[id-1].quantity += quantity
+    this.productQuantities[id-1].quantity += quantity;
   }
 
   getProductQuantities(): ProductQty[] {
-    return this.productQuantities.filter(p => p.quantity > 0)
+    return this.productQuantities.filter(p => p.quantity > 0);
   }
 
   clean(): void {
-    this.productQuantities = []
-    this.setupProductQuantities()
+    this.productQuantities = [];
+    this.setupProductQuantities();
   }
 }

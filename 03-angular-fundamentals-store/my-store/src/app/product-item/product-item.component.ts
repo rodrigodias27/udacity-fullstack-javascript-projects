@@ -26,8 +26,10 @@ export class ProductItemComponent implements OnInit {
   }
 
   addProduct(): void {
-    this.cartService.addProduct(this.product.id, this.qty);
-    alert('Added to cart!');
+    if (this.qty > 0) {
+      this.cartService.addProduct(this.product.id, this.qty);
+      alert('Added to cart!');
+    }
   }
 
 }

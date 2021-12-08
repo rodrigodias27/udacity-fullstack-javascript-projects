@@ -1,0 +1,49 @@
+<div class="cart-container">
+    <div class="cart-panel">
+        <p class="empty-cart-message" *ngIf="productsQties.length == 0">
+            <strong>Cart is empty!</strong>
+        </p>
+        <div *ngFor="let productQty of productsQties">
+            <div class="cart-item">
+                <div>
+                    <img src="{{ productQty.product.url }}">
+                </div>
+                <div class="cart-item-details">
+                    <p><strong>{{ productQty.product.name }}</strong></p>
+                    <p>${{ productQty.product.price }}</p>
+                    <p>Amount: <input class="number-input" type="number" min="0" name="productQty.quantity" [(ngModel)]="productQty.quantity" (ngModelChange)="ngOnInit()"></p>
+                </div>
+            </div>
+        </div>
+        <h4 *ngIf="productsQties.length > 0">
+            Total price: ${{ totalPrice }}
+        </h4>
+    </div>
+    <div class="cart-panel">
+        <form #form="ngForm" (ngSubmit)="submitForm()">
+            <div class="form-group form-margin">
+                <label class="form-margin" for="full-name">Full name</label>
+                <input
+                    type="text" class="form-control form-margin" id="full-name"
+                    required name="fullName" [(ngModel)]="fullName"
+                    minlength="3" placeholder="(minimum 3 characters)">
+            </div>
+            <div class="form-group form-margin">
+                <label class="form-margin" for="address">Address</label>
+                <input
+                    type="text" class="form-control form-margin" id="address"
+                    required name="address" [(ngModel)]="address"
+                    minlength="6" placeholder="(minimum 6 characters)">
+            </div>
+            <div class="form-group form-margin">
+                <label class="form-margin" for="credit-card-number">Credit card number</label>
+                <input
+                    type="text" class="form-control form-margin" id="credit-card-number" aria-describedby="credit-card-helper"
+                    required name="creditCardNumber" [(ngModel)]="creditCardNumber"
+                    minlength="16" maxlength="16" placeholder="(16-digit number)">
+                <small id="credit-card-helper" class="form-text text-muted form-margin">We'll never share your payment details with anyone else.</small>
+            </div>
+            <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

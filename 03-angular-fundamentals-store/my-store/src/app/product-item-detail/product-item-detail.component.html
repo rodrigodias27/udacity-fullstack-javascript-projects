@@ -1,0 +1,15 @@
+<div class="detail-container" *ngIf="product.id > 0">
+    <div class="detail-item">
+        <img src="{{ product.url }}">
+    </div>
+    <div class="detail-item">
+        <h4>{{ product.name }}</h4>
+        <p>${{ product.price }}</p>
+        <p>{{ product.description }}</p>
+        <input type="number" min=0 value=0 class="select-input" name="qty" [(ngModel)]="qty">
+        <br>
+        <button type="button" class="btn btn-primary" (click)="addProduct()">Add to cart</button>
+        <br>
+        <button type="button" class="btn btn-link back-link" routerLink="/">&#8592;Back to product list</button>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-<div class="confirmation-container confirmation-items">
+<div class="confirmation-container confirmation-items" *ngIf="totalValue > 0">
     <h1 class="confirmation-header confirmation-item">Success!&#127881;</h1>
     <p class="confirmation-item">Thank you, <strong>{{ buyerFullName }}</strong>!</p>
     <p class="confirmation-item">Your <strong>${{ totalValue }}</strong> order is confirmed!</p>

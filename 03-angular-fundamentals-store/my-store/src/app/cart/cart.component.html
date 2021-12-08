@@ -41,7 +41,7 @@
                 <input
                     type="number" class="form-control form-margin" id="credit-card-number" aria-describedby="credit-card-helper"
                     required name="creditCardNumber" [(ngModel)]="creditCardNumber"
-                    min=1000000000000000 max=99999999999999999999 placeholder="(16-digit number)">
+                    min=1000000000000000 max=9999999999999999 placeholder="(16-digit number)">
                 <small id="credit-card-helper" class="form-text text-muted form-margin">We'll never share your payment details with anyone else.</small>
             </div>
             <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Submit</button>

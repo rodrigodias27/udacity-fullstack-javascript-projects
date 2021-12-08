@@ -41,6 +41,13 @@ export class CartComponent implements OnInit {
     this.totalPrice = total.toFixed(2) as unknown as number;
   }
 
+  removeProduct(productId: number): void {
+    this.cartService.removeProduct(productId);
+    alert('Removed from cart!');
+    this.productsQties = this.cartService.getProductQuantities();
+    this.calcTotalPrice();
+  }
+
   submitForm(): void {
     if (this.productsQties.length == 0) {
       alert('Could not send order because cart is empty.');

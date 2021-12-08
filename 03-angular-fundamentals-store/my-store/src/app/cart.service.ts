@@ -32,6 +32,10 @@ export class CartService {
     this.productQuantities[id-1].quantity += quantity;
   }
 
+  removeProduct(id: number): void {
+    this.productQuantities[id-1].quantity = 0;
+  }
+
   getProductQuantities(): ProductQty[] {
     return this.productQuantities.filter(p => p.quantity > 0);
   }

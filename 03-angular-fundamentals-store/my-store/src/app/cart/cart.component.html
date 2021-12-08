@@ -12,6 +12,7 @@
                     <p><strong>{{ productQty.product.name }}</strong></p>
                     <p>${{ productQty.product.price }}</p>
                     <p>Amount: <input class="number-input" type="number" min="0" name="productQty.quantity" [(ngModel)]="productQty.quantity" (ngModelChange)="ngOnInit()"></p>
+                    <button type="button" class="btn btn-danger" (click)="removeProduct(productQty.product.id)">Remove</button>
                 </div>
             </div>
         </div>
@@ -38,9 +39,9 @@
             <div class="form-group form-margin">
                 <label class="form-margin" for="credit-card-number">Credit card number</label>
                 <input
-                    type="text" class="form-control form-margin" id="credit-card-number" aria-describedby="credit-card-helper"
+                    type="number" class="form-control form-margin" id="credit-card-number" aria-describedby="credit-card-helper"
                     required name="creditCardNumber" [(ngModel)]="creditCardNumber"
-                    minlength="16" maxlength="16" placeholder="(16-digit number)">
+                    min=1000000000000000 max=99999999999999999999 placeholder="(16-digit number)">
                 <small id="credit-card-helper" class="form-text text-muted form-margin">We'll never share your payment details with anyone else.</small>
             </div>
             <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Submit</button>
